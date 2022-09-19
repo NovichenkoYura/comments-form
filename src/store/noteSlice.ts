@@ -1,8 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
-
+import { createSlice } from '@reduxjs/toolkit';
 
 const noteSlice = createSlice({
-  name: "note",
+  name: 'note',
   initialState: {
     value: 43,
   },
@@ -10,8 +9,7 @@ const noteSlice = createSlice({
    reducers: {    
     setValue(state, action) {
       state.value = action.payload;
-     },   
-    
+     },       
   },
 });
 

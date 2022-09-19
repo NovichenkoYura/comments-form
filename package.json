@@ -32,7 +32,9 @@
   },
   "prettier":{
     "singleQuote": true,
-    "printWidth": 100
+    "printWidth": 100,
+    "semi": true,
+    "endOfLine": "auto"
   },
   "eslintConfig": {
     "extends": [
