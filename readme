@@ -1,0 +1,50 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+type Comment = {
+  id: string;
+  name: string;
+  text: string;
+  data: Date;
+};
+
+type CommentsState = {
+  list: Comment[];
+};
+
+const initialState: CommentsState = {
+  list: [],
+};
+
+const commentSlice = createSlice({
+  name: 'comment',
+  initialState,
+
+   reducers: {    
+    setValue(state, action: PayloadAction<string>) {
+      state.value = action.payload;
+     },       
+  },
+});
+
+export const {
+  onCurrentItemInfo,
+  sortTitle,
+  sortDate,
+  searchTitleInfo,
+} = noteSlice.actions;
+export default commentSlice.reducer;
+
+
+
+const commentSlice = createSlice({
+  name: 'note',
+  initialState: {
+    value: 43,
+  },
+
+   reducers: {    
+    setValue(state, action) {
+      state.value = action.payload;
+     },       
+  },
+});
