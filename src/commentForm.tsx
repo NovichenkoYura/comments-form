@@ -3,108 +3,74 @@ import * as Yup from 'yup';
 import React, { useMemo, useEffect } from 'react';
 
 import { addCommentsThunk } from './store/commentSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { useAppDispatch } from './store/index';
+import { useAppDispatch, useAppSelector} from './store/index';
 
-export const Form = () => {  
+interface formProps {
+  id: string;
+  name: string;
+  text: string;
+}
 
-    const {     
-    currentEditingItem,
-    notesList,
-    isFetching
-    
-  } = useSelector((state) => state.notes); 
-
-  const activeNote = notesList.find((note) => note.id === currentEditingItem);
+export const CommentsForm: React.FC<formProps> = () => {
+  const comments = useAppSelector(state => state.comments.list); 
 
   const dispatch = useAppDispatch();
 
   const validationSchema = useMemo(() => {
     return Yup.object({
-      title: Yup.string().min(5).max(100).required("Required"),
-      description: Yup.string().min(5).max(500).required("Required"),
+      name: Yup.string().min(2).max(100).required('Required'),
+      text: Yup.string().min(5).max(500).required('Required'),
     });
   }, []);
 
   const formik = useFormik({
     initialValues: {
-      title: "",
-      description: "",
+      name: '',
+      text: '',
     },
-    onSubmit: (values, {resetForm}) => {
-      if (activeNote) {
-        dispatch(
-          updNotesThunk({
-            title: values.title,
-            description: values.description,
-            id: activeNote.id,
-          })          
+    onSubmit: (values, { resetForm }) => {
+      dispatch(addCommentsThunk( name: values.name, text: values.text )
         );
-        dispatch(onCurrentItemInfo(''))
-              
-      } else {
-        dispatch(
-          addNotesThunk({ title: values.title, description: values.description })
-        );
-        resetForm();
-       
-      }
-     
+        resetForm();   
     },
     validationSchema,
   });
-
-  useEffect(() => {
-    if (activeNote && currentEditingItem) {
-      formik.setValues({
-        title: activeNote.title,
-        description: activeNote.description,
-      });
-    } else {
-      formik.setValues({
-        title: "",
-        description: "",
-      });
-    }
-  }, [activeNote, currentEditingItem]);
-
-
+ 
   return (
     
     <form onSubmit={formik.handleSubmit}>
       
-      <div className="formik-form">
-        {isFetching? <img src={preloader} className="preloader"/> : null}
-        <label htmlFor="title">Title</label>
+      <div className='formik-form'>        
+        <label htmlFor='name'>Name</label>
         <input
-          id="title"
-          name="title"
-          type="text"
+          id='name'
+          name='name'
+          type='text'
           onChange={formik.handleChange}
-          value={formik.values.title}
+          value={formik.values.name}
           className="formik-input"
         />
-        <p className="formik-errors-message">{formik.errors.title}</p>
+        <p className="formik-errors-message">{formik.errors.name}</p>
       </div>
 
-      <div className="formik-form">
-        <label htmlFor="description">Description</label>
+      <div className='formik-form'>
+        <label htmlFor='text'>Comment</label>
         <textarea
-          id="description"
-          name="description"
-          type="description"
+          id='text'
+          name='text'
+          type='text'
           onChange={formik.handleChange}
-          value={formik.values.description}
+          value={formik.values.text}
         />
-        <p className="formik-errors-message">{formik.errors.description}</p>
+        <p className="formik-errors-message">{formik.errors.text}</p>
       </div>
 
       <button
         type="submit"
-        onClick={currentEditingItem ? updNotesThunk : addNotesThunk}
+        onClick={addCommentsThunk}
         className="main__button"
       >
-        {currentEditingItem ? "Update" : "Save"}
+        Add comment
       </button>
     </form>
 

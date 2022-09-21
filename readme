@@ -1,3 +1,6 @@
+какой адрес гетзапроса https://jordan.ashton.fashion/api/goods/30/comments?
+
+
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type Comment = {

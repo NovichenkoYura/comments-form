@@ -17,7 +17,7 @@ const initialState: CommentsState = {
 };
 
 export const getCommentsThunk = createAsyncThunk('comment/getComments', async () => {
-  const response = await axios.get('http://localhost:3001/notes');
+  const response = await axios.get('https://jordan.ashton.fashion/api/goods/30/comments');
   const data = await response.data;
   return data;
 });
@@ -30,17 +30,20 @@ export const addCommentsThunk = createAsyncThunk(
       name: name,
       text: text,
     };
-    const response = await axios.post('http://localhost:3001/notes/', comment);
+    const response = await axios.post(
+      'https://jordan.ashton.fashion/api/goods/30/comments',
+      comment
+    );
     const data = await response.data;
     return data;
   }
 );
 
 const commentSlice = createSlice({
-  name: 'comment',
+  name: 'comments',
   initialState,
 
-  extraReducers: (builder) => {
+  extraReducers:(builder) => {
     builder.addCase(getCommentsThunk.pending, (state) => {
       state.isFetching = true
     });
@@ -48,10 +51,10 @@ const commentSlice = createSlice({
     state.list = action.payload
     state.isFetching = false
   });
-  builder.addCase(addNotesThunk.pending, (state) => {
+  builder.addCase(addCommentsThunk.pending, (state) => {
     state.isFetching = true
   });
-  builder.addCase(addNotesThunk.fulfilled, (state, action: PayloadAction<string>) => {
+  builder.addCase(addCommentsThunk.fulfilled, (state, action: PayloadAction<string>) => {
     state.notesList.push(action.payload)
     state.isFetching = false
   });  
