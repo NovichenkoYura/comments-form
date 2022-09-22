@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import React, { useMemo, useEffect } from 'react';
 
 import { addCommentsThunk } from './store/commentSlice';
-import { useAppDispatch, useAppSelector} from './store/index';
+import { useAppDispatch, useAppSelector } from './app/hooks';
 
 interface formProps {
   id: string;
@@ -29,7 +29,7 @@ export const CommentsForm: React.FC<formProps> = () => {
       text: '',
     },
     onSubmit: (values, { resetForm }) => {
-      dispatch(addCommentsThunk( name: values.name, text: values.text )
+      dispatch(addCommentsThunk( {name: values.name, text: values.text, id: '1'} )
         );
         resetForm();   
     },

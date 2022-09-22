@@ -1,19 +1,21 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-type Comment = {
+interface Comment {
   id: string;
   name: string;
   text: string;
   isFetching: boolean;
-};
+}
 
-type CommentsState = {
+interface CommentsState {
   list: Comment[];
-};
+  isFetching: boolean;
+}
 
 const initialState: CommentsState = {
   list: [],
+  isFetching: true,
 };
 
 export const getCommentsThunk = createAsyncThunk('comment/getComments', async () => {
@@ -24,7 +26,7 @@ export const getCommentsThunk = createAsyncThunk('comment/getComments', async ()
 
 export const addCommentsThunk = createAsyncThunk(
   'comment/addComments',
-  async ({ id, name, text }) => {
+  async ({ id, name, text }: Omit<Comment, 'isFetching'>) => {
     const comment = {
       id: id,
       name: name,
@@ -43,25 +45,25 @@ const commentSlice = createSlice({
   name: 'comments',
   initialState,
 
-  extraReducers:(builder) => {
+  extraReducers: (builder) => {
     builder.addCase(getCommentsThunk.pending, (state) => {
-      state.isFetching = true
+      state.isFetching = true;
     });
-  builder.addCase(getCommentsThunk.fulfilled, (state, action: PayloadAction<string>) => { 
+  builder.addCase(getCommentsThunk.fulfilled, (state, action: PayloadAction<Comment[]>) => { 
     state.list = action.payload
     state.isFetching = false
   });
   builder.addCase(addCommentsThunk.pending, (state) => {
     state.isFetching = true
   });
-  builder.addCase(addCommentsThunk.fulfilled, (state, action: PayloadAction<string>) => {
-    state.notesList.push(action.payload)
+  builder.addCase(addCommentsThunk.fulfilled, (state, action: PayloadAction<Comment>) => {
+    state.list.push(action.payload)
     state.isFetching = false
   });  
   },
 
   reducers: {
-    setValue(state, action: PayloadAction<string>) {
+    setValue(state, action: PayloadAction<Comment[]>) {
       state.list = action.payload;
     },
   },

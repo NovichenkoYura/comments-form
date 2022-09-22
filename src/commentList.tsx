@@ -1,4 +1,5 @@
-import { useAppDispatch, useAppSelector } from './store/index';
+//@ts-nocheck
+import { useAppDispatch, useAppSelector } from './app/hooks';
 
 interface commentsListProps {
   id: string;
