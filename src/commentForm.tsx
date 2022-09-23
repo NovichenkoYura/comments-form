@@ -12,7 +12,7 @@ interface formProps {
 }
 
 export const CommentsForm: React.FC<formProps> = () => {
-  const comments = useAppSelector(state => state.comments.list); 
+  const comments = useAppSelector((state) => state.comments.list);
 
   const dispatch = useAppDispatch();
 
@@ -29,23 +29,20 @@ export const CommentsForm: React.FC<formProps> = () => {
       text: '',
     },
     onSubmit: (values, { resetForm }) => {
-      dispatch(addCommentsThunk( {name: values.name, text: values.text, id: '1'} )
-        );
-        resetForm();   
+      console.log('add');
+      dispatch(addCommentsThunk({ name: values.name, text: values.text, id: '1' }));
+      resetForm();
     },
     validationSchema,
   });
- 
   return (
-    
     <form onSubmit={formik.handleSubmit}>
-      
-      <div className='formik-form'>        
-        <label htmlFor='name'>Name</label>
+      <div className="formik-form">
+        <label htmlFor="name">Name</label>
         <input
-          id='name'
-          name='name'
-          type='text'
+          id="name"
+          name="name"
+          type="name"
           onChange={formik.handleChange}
           value={formik.values.name}
           className="formik-input"
@@ -53,27 +50,15 @@ export const CommentsForm: React.FC<formProps> = () => {
         <p className="formik-errors-message">{formik.errors.name}</p>
       </div>
 
-      <div className='formik-form'>
-        <label htmlFor='text'>Comment</label>
-        <textarea
-          id='text'
-          name='text'
-          type='text'
-          onChange={formik.handleChange}
-          value={formik.values.text}
-        />
+      <div className="formik-form">
+        <label htmlFor="text">Comment</label>
+        <textarea id="text" name="text" onChange={formik.handleChange} value={formik.values.text} />
         <p className="formik-errors-message">{formik.errors.text}</p>
       </div>
 
-      <button
-        type="submit"
-        onClick={addCommentsThunk}
-        className="main__button"
-      >
+      <button type="submit" onClick={addCommentsThunk} className="main__button">
         Add comment
       </button>
     </form>
-
-    
   );
 };

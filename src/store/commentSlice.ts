@@ -5,7 +5,6 @@ interface Comment {
   id: string;
   name: string;
   text: string;
-  isFetching: boolean;
 }
 
 interface CommentsState {
@@ -26,7 +25,7 @@ export const getCommentsThunk = createAsyncThunk('comment/getComments', async ()
 
 export const addCommentsThunk = createAsyncThunk(
   'comment/addComments',
-  async ({ id, name, text }: Omit<Comment, 'isFetching'>) => {
+  async ({ id, name, text }: Comment) => {
     const comment = {
       id: id,
       name: name,
@@ -49,17 +48,17 @@ const commentSlice = createSlice({
     builder.addCase(getCommentsThunk.pending, (state) => {
       state.isFetching = true;
     });
-  builder.addCase(getCommentsThunk.fulfilled, (state, action: PayloadAction<Comment[]>) => { 
-    state.list = action.payload
-    state.isFetching = false
-  });
-  builder.addCase(addCommentsThunk.pending, (state) => {
-    state.isFetching = true
-  });
-  builder.addCase(addCommentsThunk.fulfilled, (state, action: PayloadAction<Comment>) => {
-    state.list.push(action.payload)
-    state.isFetching = false
-  });  
+    builder.addCase(getCommentsThunk.fulfilled, (state, action: PayloadAction<Comment[]>) => {
+      state.list = action.payload;
+      state.isFetching = false;
+    });
+    builder.addCase(addCommentsThunk.pending, (state) => {
+      state.isFetching = true;
+    });
+    builder.addCase(addCommentsThunk.fulfilled, (state, action: PayloadAction<Comment>) => {
+      state.list.push(action.payload);
+      state.isFetching = false;
+    });
   },
 
   reducers: {

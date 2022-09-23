@@ -1,16 +1,13 @@
-//@ts-nocheck
 import React from 'react';
 import { CommentsForm } from './commentForm';
-import { CommentsList } from './commentList';
+import { CommentsList, commentsListProps } from './commentList';
 import './App.css';
 
-function App() {
+export const App: React.FC = () => {  
   return (
     <div className="App">
       <CommentsForm />
       <CommentsList />
     </div>
   );
-}
-
-export default App;
+};
