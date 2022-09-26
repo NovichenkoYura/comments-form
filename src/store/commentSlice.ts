@@ -18,7 +18,7 @@ const initialState: CommentsState = {
 };
 
 export const getCommentsThunk = createAsyncThunk('comment/getComments', async () => {
-  const response = await axios.get('https://jordan.ashton.fashion/api/goods/30/comments');
+  const response = await axios.get('http://localhost:3001/comments');
   const data = await response.data;
   return data;
 });
@@ -31,10 +31,7 @@ export const addCommentsThunk = createAsyncThunk(
       name: name,
       text: text,
     };
-    const response = await axios.post(
-      'https://jordan.ashton.fashion/api/goods/30/comments',
-      comment
-    );
+    const response = await axios.post('http://localhost:3001/comments', comment);
     const data = await response.data;
     return data;
   }

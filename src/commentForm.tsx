@@ -2,18 +2,20 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import React, { useMemo, useEffect } from 'react';
 
+import { v4 as uuidv4 } from 'uuid';
+
 import { addCommentsThunk } from './store/commentSlice';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 
+const projectId: string = uuidv4();
+
 interface formProps {
-  id: string;
-  name: string;
-  text: string;
+  id?: string;
+  name?: string;
+  text?: string;
 }
 
 export const CommentsForm: React.FC<formProps> = () => {
-  const comments = useAppSelector((state) => state.comments.list);
-
   const dispatch = useAppDispatch();
 
   const validationSchema = useMemo(() => {
@@ -27,38 +29,40 @@ export const CommentsForm: React.FC<formProps> = () => {
     initialValues: {
       name: '',
       text: '',
+      id: '',
     },
-    onSubmit: (values, { resetForm }) => {
-      console.log('add');
-      dispatch(addCommentsThunk({ name: values.name, text: values.text, id: '1' }));
+    onSubmit: (values, { resetForm }) => {      
+      dispatch(addCommentsThunk({ name: values.name, text: values.text, id: projectId }));
+      console.log(projectId)
       resetForm();
     },
     validationSchema,
   });
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit} className="commentsForm__container">
       <div className="formik-form">
-        <label htmlFor="name">Name</label>
         <input
           id="name"
           name="name"
-          type="name"
           onChange={formik.handleChange}
           value={formik.values.name}
           className="formik-input"
+          placeholder="Your name..."
         />
         <p className="formik-errors-message">{formik.errors.name}</p>
-      </div>
 
-      <div className="formik-form">
-        <label htmlFor="text">Comment</label>
-        <textarea id="text" name="text" onChange={formik.handleChange} value={formik.values.text} />
+        <textarea
+          id="text"
+          name="text"
+          onChange={formik.handleChange}
+          value={formik.values.text}
+          placeholder="Your comment..."
+        />
         <p className="formik-errors-message">{formik.errors.text}</p>
+        <button type="submit" className="main__button">
+          Add comment
+        </button>
       </div>
-
-      <button type="submit" onClick={addCommentsThunk} className="main__button">
-        Add comment
-      </button>
     </form>
   );
 };
