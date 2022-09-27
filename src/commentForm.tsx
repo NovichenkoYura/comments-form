@@ -31,9 +31,8 @@ export const CommentsForm: React.FC<formProps> = () => {
       text: '',
       id: '',
     },
-    onSubmit: (values, { resetForm }) => {      
+    onSubmit: (values, { resetForm }) => {
       dispatch(addCommentsThunk({ name: values.name, text: values.text, id: projectId }));
-      console.log(projectId)
       resetForm();
     },
     validationSchema,

@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from './app/hooks';
+import { useAppSelector } from './app/hooks';
 
 export interface commentsListProps {
   id?: string;
@@ -8,14 +8,11 @@ export interface commentsListProps {
 
 export const CommentsList: React.FC<commentsListProps> = () => {
   const comments = useAppSelector((state) => state.comments.list);
-  console.log(comments)
   return (
     <div className="app-sidebar-notes">
       {comments.map((comment) => (
-        <div
-          key={comment.id}
-          className={"commentList__item"}>
-          <div className="commentListItem__name">{comment.name}</div>         
+        <div key={comment.id} className="commentList__item">
+          <div className="commentListItem__name">{comment.name}</div>
           <div>{comment.text}</div>
         </div>
       ))}

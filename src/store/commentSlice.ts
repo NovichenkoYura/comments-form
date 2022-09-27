@@ -20,6 +20,7 @@ const initialState: CommentsState = {
 export const getCommentsThunk = createAsyncThunk('comment/getComments', async () => {
   const response = await axios.get('http://localhost:3001/comments');
   const data = await response.data;
+  console.log(data);
   return data;
 });
 
