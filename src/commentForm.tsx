@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { addCommentsThunk } from './store/commentSlice';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 
-const projectId: string = uuidv4();
+
 
 interface formProps {
   id?: string;
@@ -17,6 +17,7 @@ interface formProps {
 
 export const CommentsForm: React.FC<formProps> = () => {
   const dispatch = useAppDispatch();
+  const projectId: string = uuidv4();
 
   const validationSchema = useMemo(() => {
     return Yup.object({
