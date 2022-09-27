@@ -14,12 +14,9 @@ export const CommentsList: React.FC<commentsListProps> = () => {
       {comments.map((comment) => (
         <div
           key={comment.id}
-              className={`app-sidebar-note`}>
-              
-          <div className="sidebar-note-title">
-            <strong>{comment.name}</strong>
-          </div>
-          <p>{comment.text}</p>
+          className={"commentList__item"}>
+          <div className="commentListItem__name">{comment.name}</div>         
+          <div>{comment.text}</div>
         </div>
       ))}
     </div>
