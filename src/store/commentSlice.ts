@@ -61,6 +61,7 @@ const commentSlice = createSlice({
     builder.addCase(addCommentsThunk.fulfilled, (state, action: PayloadAction<Comment>) => {
       state.list.push(action.payload);
       state.isFetching = false;
+      state.totalQtyComments = state.totalQtyComments + 1;
     });
   },
 
