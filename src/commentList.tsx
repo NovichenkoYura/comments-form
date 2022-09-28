@@ -7,10 +7,11 @@ export interface commentsListProps {
 }
 
 export const CommentsList: React.FC<commentsListProps> = () => {
-  const comments = useAppSelector((state) => state.comments.list);
+  const { list } = useAppSelector((state) => state.comments);
+
   return (
     <div className="app-sidebar-notes">
-      {comments.map((comment) => (
+      {list.map((comment) => (
         <div key={comment.id} className="commentList__item">
           <div className="commentListItem__name">{comment.name}</div>
           <div>{comment.text}</div>

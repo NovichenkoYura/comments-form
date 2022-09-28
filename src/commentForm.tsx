@@ -7,8 +7,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { addCommentsThunk } from './store/commentSlice';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 
-
-
 interface formProps {
   id?: string;
   name?: string;

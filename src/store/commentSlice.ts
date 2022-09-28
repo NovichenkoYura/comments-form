@@ -10,17 +10,22 @@ interface Comment {
 interface CommentsState {
   list: Comment[];
   isFetching: boolean;
+  currentpage: number;
+  perPage: number;
+  totalQtyComments: number;
 }
 
 const initialState: CommentsState = {
   list: [],
   isFetching: true,
+  currentpage: 1,
+  perPage: 3,
+  totalQtyComments: 0,
 };
 
 export const getCommentsThunk = createAsyncThunk('comment/getComments', async () => {
   const response = await axios.get('http://localhost:3001/comments');
   const data = await response.data;
-  console.log(data);
   return data;
 });
 
@@ -60,11 +65,11 @@ const commentSlice = createSlice({
   },
 
   reducers: {
-    setValue(state, action: PayloadAction<Comment[]>) {
-      state.list = action.payload;
+    setCurrentPage(state, action: PayloadAction<number>) {
+      state.currentpage = action.payload;
     },
   },
 });
 
-export const { setValue } = commentSlice.actions;
+export const { setCurrentPage } = commentSlice.actions;
 export default commentSlice.reducer;
