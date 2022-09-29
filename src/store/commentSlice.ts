@@ -10,7 +10,7 @@ interface Comment {
 interface CommentsState {
   list: Comment[];
   isFetching: boolean;
-  currentpage: number;
+  currentPage: number;
   perPage: number;
   totalQtyComments: number;
 }
@@ -18,7 +18,7 @@ interface CommentsState {
 const initialState: CommentsState = {
   list: [],
   isFetching: true,
-  currentpage: 1,
+  currentPage: 1,
   perPage: 3,
   totalQtyComments: 0,
 };
@@ -67,7 +67,7 @@ const commentSlice = createSlice({
 
   reducers: {
     setCurrentPage(state, action: PayloadAction<number>) {
-      state.currentpage = action.payload;
+      state.currentPage = action.payload;
     },
   },
 });

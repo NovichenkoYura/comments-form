@@ -8,11 +8,10 @@ export interface paginationProps {
 }
 
 export const Pagination: React.FC<paginationProps> = () => {
-  const { list, isFetching, currentpage, perPage, totalQtyComments } = useAppSelector(
+  const { list, isFetching, currentPage, perPage, totalQtyComments } = useAppSelector(
     (state) => state.comments
   );
   const totalQtyPages = Math.ceil(list.length / perPage);
-
   const pageNumbers = [];
 
   for (let i = 1; i <= totalQtyPages; i++) {
