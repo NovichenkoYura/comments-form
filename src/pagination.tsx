@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 
 export interface paginationProps {
-  currentpage?: number;
+  currentPage?: number;
   perPage?: number;
   totalQtyComments?: number;
 }
@@ -28,7 +28,7 @@ export const Pagination: React.FC<paginationProps> = () => {
   const paginateIncriment = (currentPage: number) => dispatch(setCurrentPage(currentPage + 1));
 
   return (
-    <div>
+    <div className="pagination__section">
       <ul className="pagination">
         <li className="page__item">
           <a href="!#" className="page__link" onClick={() => paginateDecriment(currentPage)}>
@@ -37,10 +37,19 @@ export const Pagination: React.FC<paginationProps> = () => {
         </li>
         {pageNumbers.map((number) => (
           <li className="page__item" key={number}>
-            <a href="!#" className="page__link" onClick={() => paginate(number)}>
+            {/* <a href="!#" className="page__link " onClick={() => paginate(number)}>
+              {number}
+            </a> */}
+            <a
+              href="!#"
+              className={`page__link ${currentPage === number && 'active'}`}
+              onClick={() => paginate(number)}
+            >
               {number}
             </a>
           </li>
+          // className={`app-sidebar-note ${note.id === activeNote && "active"}`}
+          // {isFetching? <img src={preloader} className="preloader"/> : null}
         ))}
         <li className="page__item">
           <a href="!#" className="page__link" onClick={() => paginateIncriment(currentPage)}>

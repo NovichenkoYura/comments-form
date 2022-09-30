@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { addCommentsThunk } from './store/commentSlice';
 import { useAppDispatch, useAppSelector } from './app/hooks';
+import preloader from './img/preloader.gif';
 
 interface formProps {
   id?: string;
@@ -16,6 +17,7 @@ interface formProps {
 export const CommentsForm: React.FC<formProps> = () => {
   const dispatch = useAppDispatch();
   const projectId: string = uuidv4();
+  const { isFetching } = useAppSelector((state) => state.comments);
 
   const validationSchema = useMemo(() => {
     return Yup.object({
@@ -39,6 +41,7 @@ export const CommentsForm: React.FC<formProps> = () => {
   return (
     <form onSubmit={formik.handleSubmit} className="commentsForm__container">
       <div className="formik-form">
+        {isFetching ? <img src={preloader} className="preloader" alt="loading" /> : null}
         <input
           id="name"
           name="name"
