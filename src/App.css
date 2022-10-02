@@ -43,7 +43,7 @@
   border: 1px solid #ddd;
   border-radius: 5px;
   width: 450px;
-  height: 350px;
+  height: 320px;
   padding: 25px 25px 0px 25px;
   padding-bottom: 0px;
   background-color: rgb(177, 174, 174);
@@ -57,7 +57,7 @@ textarea {
   border: 1px solid #ddd;
   border-radius: 5px;
   width: 400px;
-  height: 15vh;
+  height: 12vh;
   /* height: calc(50vh - 180px); */
   padding: 10px;
   resize: none;
@@ -166,4 +166,8 @@ ul.pagination li a:hover:not(.active) {background-color: #ddd;}
   right: 0;
   top: 0;
   z-index: 0;
+}
+
+.ishidden{
+  display: none;
 }

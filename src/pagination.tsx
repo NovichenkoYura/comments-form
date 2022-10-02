@@ -35,11 +35,8 @@ export const Pagination: React.FC<paginationProps> = () => {
             <FontAwesomeIcon icon={faAnglesLeft} />
           </a>
         </li>
-        {pageNumbers.map((number) => (
-          <li className="page__item" key={number}>
-            {/* <a href="!#" className="page__link " onClick={() => paginate(number)}>
-              {number}
-            </a> */}
+        {pageNumbers.map((number) => (  
+          <li className="page__item" key={number}>            
             <a
               href="!#"
               className={`page__link ${currentPage === number && 'active'}`}
@@ -47,9 +44,7 @@ export const Pagination: React.FC<paginationProps> = () => {
             >
               {number}
             </a>
-          </li>
-          // className={`app-sidebar-note ${note.id === activeNote && "active"}`}
-          // {isFetching? <img src={preloader} className="preloader"/> : null}
+          </li>          
         ))}
         <li className="page__item">
           <a href="!#" className="page__link" onClick={() => paginateIncriment(currentPage)}>
