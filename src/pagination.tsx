@@ -1,9 +1,9 @@
 import React from 'react';
-import { number } from 'yup/lib/locale';
 import { useAppSelector, useAppDispatch } from './app/hooks';
 import { setCurrentPage } from './store/commentSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 
 export interface paginationProps {
   currentPage?: number;
@@ -17,6 +17,7 @@ export const Pagination: React.FC<paginationProps> = () => {
   );
   const totalQtyPages = Math.ceil(list.length / perPage);
   const pageNumbers = [];
+
 
   for (let i = 1; i <= totalQtyPages; i++) {
     if (pageNumbers.length <= 8) {
