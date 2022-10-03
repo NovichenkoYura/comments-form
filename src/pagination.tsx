@@ -19,7 +19,9 @@ export const Pagination: React.FC<paginationProps> = () => {
   const pageNumbers = [];
 
   for (let i = 1; i <= totalQtyPages; i++) {
-    pageNumbers.push(i);
+    if (pageNumbers.length <= 8) {
+      pageNumbers.push(i);
+    }
   }
 
   const dispatch = useAppDispatch();
@@ -35,8 +37,9 @@ export const Pagination: React.FC<paginationProps> = () => {
             <FontAwesomeIcon icon={faAnglesLeft} />
           </a>
         </li>
-        {pageNumbers.map((number) => (  
-          <li className="page__item" key={number}>            
+
+        {pageNumbers.map((number) => (
+          <li className="page__item" key={number}>
             <a
               href="!#"
               className={`page__link ${currentPage === number && 'active'}`}
@@ -44,7 +47,7 @@ export const Pagination: React.FC<paginationProps> = () => {
             >
               {number}
             </a>
-          </li>          
+          </li>
         ))}
         <li className="page__item">
           <a href="!#" className="page__link" onClick={() => paginateIncriment(currentPage)}>
