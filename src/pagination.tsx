@@ -1,9 +1,7 @@
-import React from 'react';
 import { useAppSelector, useAppDispatch } from './app/hooks';
 import { setCurrentPage } from './store/commentSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
 
 export interface paginationProps {
   currentPage?: number;
@@ -12,17 +10,12 @@ export interface paginationProps {
 }
 
 export const Pagination: React.FC<paginationProps> = () => {
-  const { list, isFetching, currentPage, perPage, totalQtyComments } = useAppSelector(
-    (state) => state.comments
-  );
+  const { list, currentPage, perPage } = useAppSelector((state) => state.comments);
   const totalQtyPages = Math.ceil(list.length / perPage);
   const pageNumbers = [];
 
-
   for (let i = 1; i <= totalQtyPages; i++) {
-    if (pageNumbers.length <= 8) {
-      pageNumbers.push(i);
-    }
+    pageNumbers.push(i);
   }
 
   const dispatch = useAppDispatch();

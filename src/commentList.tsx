@@ -1,7 +1,6 @@
 import { useAppSelector } from './app/hooks';
 import { useState } from 'react';
 
-
 export interface commentsListProps {
   id?: string;
   name?: string;
@@ -14,17 +13,14 @@ export const CommentsList: React.FC<commentsListProps> = () => {
   );
 
   const [actualPerPage, setactualPerPage] = useState<number>(perPage);
-  console.log(actualPerPage)
-  
+
   const showmore = () => {
     setactualPerPage(actualPerPage + 3);
-    console.log('shomore');
   };
 
   const lastPageIndex = currentPage * actualPerPage;
   const firstPageIndex = lastPageIndex - actualPerPage;
   const currentListComments = list.slice(firstPageIndex, lastPageIndex);
-  
 
   return (
     <div className="app-sidebar-notes">
